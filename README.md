@@ -23,7 +23,7 @@ npm install # or yarn / pnpm
 **Important:** Before using the library for the first time, you must run the build script to generate the Unicode range maps:
 
 ```bash
-npm run build:ranges
+npm run ./scripts/build-ranges.ts
 ```
 *(Note: This requires an active internet connection to fetch the latest Unicode data).*
 
@@ -76,5 +76,5 @@ stringWidth('±', { ambiguousIsWide: true }); // 2
 The library is fully covered by a comprehensive test suite testing dozens of edge cases (Control chars, zero-width joiners, mixed widths, VS15/VS16 conflicts).
 
 ```bash
-npm run test
+npm test
 ```
