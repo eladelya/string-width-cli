@@ -15,11 +15,14 @@ async function fetchFileSafe(url: string, fileName: string): Promise<string> {
         }
         
         return await res.text();
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('\n❌ Build Failed: Network Error!');
         console.error(`Could not download ${fileName} from Unicode.org.`);
         console.error('Please check your internet connection and try again.');
-        console.error(`Error details: ${error.message}\n`);
+        
+        // Type Narrowing בטוח
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        console.error(`Error details: ${errorMessage}\n`);
         
         // חשוב מאוד: הורג את הסקריפט עם קוד שגיאה כדי שמערכות Build (כמו GitHub Actions) ידעו שהבנייה נכשלה
         process.exit(1); 

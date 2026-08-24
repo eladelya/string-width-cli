@@ -19,6 +19,7 @@ export interface StringWidthOptions {
 }
 
 // calculates a single grapheme width
+// calculates a single grapheme width
 function getGraphemeWidth(grapheme: string, options: StringWidthOptions = {}): number {
     const firstCodePoint = grapheme.codePointAt(0);
     
@@ -42,14 +43,10 @@ function getGraphemeWidth(grapheme: string, options: StringWidthOptions = {}): n
     let hasNarrowEmojiBase = false;
     let regionalIndicatorCount = 0;
 
-    for (let i = 0; i < grapheme.length; i++) {
-        const codePoint = grapheme.codePointAt(i);
+    // השינוי מתחיל כאן: רצים על התווים השלמים
+    for (const char of grapheme) {
+        const codePoint = char.codePointAt(0);
         if (codePoint === undefined) continue;
-        
-        // if the code point is greater than 0xFFFF, it took two chars...
-        if (codePoint > 0xFFFF) {
-            i++; 
-        }
 
         if (codePoint === VS15 || codePoint === VS16) {
             lastVS = codePoint; // overriding previous selectors
