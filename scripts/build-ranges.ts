@@ -9,7 +9,6 @@ async function fetchFileSafe(url: string, fileName: string): Promise<string> {
         console.log(`Downloading ${fileName}...`);
         const res = await fetch(url);
         
-        // בדיקה אם השרת החזיר שגיאת HTTP (כמו 404 או 500)
         if (!res.ok) {
             throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
         }
@@ -20,7 +19,6 @@ async function fetchFileSafe(url: string, fileName: string): Promise<string> {
         console.error(`Could not download ${fileName} from Unicode.org.`);
         console.error('Please check your internet connection and try again.');
         
-        // Type Narrowing בטוח
         const errorMessage = error instanceof Error ? error.message : String(error);
         console.error(`Error details: ${errorMessage}\n`);
         
