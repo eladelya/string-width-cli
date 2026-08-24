@@ -1,6 +1,6 @@
 # string-width (v2.0.0)
 
-A highly accurate, dependency-free TypeScript library for calculating the visual width of strings in a terminal. 
+A highly accurate, **zero runtime dependencies** TypeScript library for calculating the visual width of strings in a terminal.
 
 This major release (v2.0.0) introduces a new architecture, leveraging native `Intl.Segmenter` and an automated Unicode data build pipeline to solve complex edge cases with emojis, variation selectors, and combining marks.
 
@@ -76,5 +76,5 @@ stringWidth('±', { ambiguousIsWide: true }); // 2
 The library is fully covered by a comprehensive test suite testing dozens of edge cases (Control chars, zero-width joiners, mixed widths, VS15/VS16 conflicts).
 
 ```bash
-npm run test
+npm test
 ```
