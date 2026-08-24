@@ -23,8 +23,7 @@ npm install # or yarn / pnpm
 **Important:** Before using the library for the first time, you must run the build script to generate the Unicode range maps:
 
 ```bash
-npm run ./scripts/build-ranges.ts
-```
+npx tsx .\scripts\build-ranges.ts```
 *(Note: This requires an active internet connection to fetch the latest Unicode data).*
 
 ## 🚀 Usage
