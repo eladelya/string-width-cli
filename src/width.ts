@@ -43,7 +43,6 @@ function getGraphemeWidth(grapheme: string, options: StringWidthOptions = {}): n
     let hasNarrowEmojiBase = false;
     let regionalIndicatorCount = 0;
 
-    // השינוי מתחיל כאן: רצים על התווים השלמים
     for (const char of grapheme) {
         const codePoint = char.codePointAt(0);
         if (codePoint === undefined) continue;
