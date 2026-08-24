@@ -1,43 +1,72 @@
-# String Width CLI 📏
+# string-width (v2.0.0)
 
-A lightweight, high-performance TypeScript library to calculate the exact terminal display width of strings. It fully supports complex Unicode characters, emojis, and ANSI escape codes.
+A highly accurate, dependency-free TypeScript library for calculating the visual width of strings in a terminal. 
 
-Built with a focus on robust architecture, performance, and Unicode standard compliance.
+This major release (v2.0.0) introduces a completely new architecture, leveraging native `Intl.Segmenter` and an automated Unicode data build pipeline to solve long-standing edge cases with complex emojis, variation selectors, and combining marks.
 
-For a deep dive into the research, architecture decisions, and Unicode edge cases, please see WRITEUP.pdf.
+## ✨ Key Features
 
-## Features ✨
-* **Native Grapheme Segmentation:** Uses `Intl.Segmenter` to accurately group complex graphemes (e.g., ZWJ sequences and skin-tone modifiers).
-* **Advanced Emoji Support:** Correctly processes Emoji Presentation Selectors (`\uFE0E` for text presentation, `\uFE0F` for emoji presentation).
-* **East Asian Width:** Full support for Wide and Fullwidth CJK characters via efficient `O(log k)` binary search over compressed ranges.
-* **Terminal-Ready:** Cleanly strips ANSI escape codes and seamlessly handles zero-width control characters (e.g., `\u200B`, LTR/RTL marks).
-* **Regional Indicators:** Accurately resolves pairing for flag emojis.
+* **100% Accurate Grapheme Segmentation:** Uses the native V8 `Intl.Segmenter` to perfectly parse ZWJ sequences (e.g., 👨‍👩‍👧‍👦), flags (🇮🇱), and combining marks (◌́◌̈) without relying on fragile regex.
+* **Always Up-to-Date:** Ships with an automated build script (`npm run build:ranges`) that fetches and parses the latest official `emoji-data.txt` and `EastAsianWidth.txt` directly from Unicode.org.
+* **Blazing Fast:** Uses memory-efficient Bitwise flags for parsing and `O(log N)` Binary Search for runtime code-point lookups.
+* **Variation Selector Support:** Correctly shrinks or expands characters based on Text Presentation (VS15, `\uFE0E`) and Emoji Presentation (VS16, `\uFE0F`) selectors.
+* **Fully Configurable:** Support for custom tab widths and ambiguous character handling.
 
-## Getting Started 🚀
+## 📦 Installation
 
-### Installation
 ```bash
-npm install
+npm install # or yarn / pnpm
 ```
 
-### Usage
+## 🚀 Usage
+
 ```typescript
-import { stringWidth } from './src/index.js';
+import { stringWidth } from './src/width.js';
 
-console.log(stringWidth('Hello'));         // Output: 5
-console.log(stringWidth('שלום'));          // Output: 4
-console.log(stringWidth('👨‍👩‍👦'));          // Output: 2 (ZWJ Sequence)
-console.log(stringWidth('\u2764\uFE0E'));  // Output: 1 (Text Presentation VS15)
-console.log(stringWidth('🇮🇱'));            // Output: 2 (Regional Indicators Flag)
+// Standard characters
+stringWidth('Hello'); // 5
+
+// East Asian Wide characters
+stringWidth('你好'); // 4
+
+// Emojis and ZWJ sequences
+stringWidth('🤣'); // 2
+stringWidth('👨‍👩‍👧‍👦'); // 2 (Measured as a single grapheme!)
+
+// Regional Indicators (Flags)
+stringWidth('🇮🇱'); // 2
+
+// Control Characters and Zero-Width
+stringWidth('A\u0301\u0308'); // 1 (Combining marks are absorbed)
+stringWidth('Line1\nLine2'); // 10 (\n is width 0)
 ```
 
-## Architecture & Trade-offs 🛠️
-This v1.0.0 implementation prioritizes high performance and stability for CLI environments:
-* **Static Ranges (MVP):** Unicode ranges for Emojis and East Asian characters are currently hardcoded for fast execution and zero dependencies. A planned v2.0 feature includes an automated build script to fetch and parse the latest tables directly from `unicode.org`.
-* **Ambiguous Characters:** Characters defined as `Ambiguous` in the Unicode standard currently default to width 1.
+### Options API
 
-## Testing 🧪
-The core logic is fully covered by an automated test suite. Run the tests using Vitest:
+You can pass an options object as the second argument to customize the calculation:
+
+```typescript
+import { stringWidth } from './src/width.js';
+
+// Custom Tab Width (Default is 4)
+stringWidth('a\tb', { tabWidth: 8 }); // 10
+
+// Ambiguous Characters Handling (Default is false/width 1)
+// Useful for legacy CJK terminals where ambiguous characters take 2 columns
+stringWidth('±', { ambiguousIsWide: true }); // 2
+```
+
+## 🛠️ How It Works (Architecture)
+
+1. **Build Step:** The `scripts/build-ranges.ts` script fetches Unicode data, parses it into an optimized memory map using Bitwise operations, and compresses it into clean, continuous hexadecimal ranges (`src/ranges.ts`).
+2. **Segmentation:** At runtime, the library splits the input string into visual graphemes using `Intl.Segmenter`.
+3. **Evaluation:** Each grapheme is evaluated against the compiled ranges using a Binary Search algorithm, considering variation selectors, regional indicators, and zero-width characters.
+
+## 🧪 Testing
+
+The library is fully covered by a comprehensive test suite testing dozens of edge cases (Control chars, ANSI stripping, mixed widths, VS15/VS16 conflicts).
+
 ```bash
 npm test
+# Runs Vitest suite (width.test.ts)
 ```
