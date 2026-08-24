@@ -8,13 +8,9 @@
     "build:ranges": "tsx scripts/build-ranges.ts",
     "test": "vitest",
     "build": "tsc"
-
   },
   "author": "Elad Elya",
   "license": "MIT",
-  "dependencies": {
-    "strip-ansi": "^7.1.0"
-  },
   "devDependencies": {
     "typescript": "^5.0.0",
     "vitest": "^1.0.0"
