@@ -24,14 +24,12 @@ async function fetchFileSafe(url: string, fileName: string): Promise<string> {
         const errorMessage = error instanceof Error ? error.message : String(error);
         console.error(`Error details: ${errorMessage}\n`);
         
-        // חשוב מאוד: הורג את הסקריפט עם קוד שגיאה כדי שמערכות Build (כמו GitHub Actions) ידעו שהבנייה נכשלה
         process.exit(1); 
     }
 }
 
 type Range = { start: number; end: number };
 
-// הגדרת משמעויות לכל תו בעזרת ביטים
 const FLAG_EMOJI = 1 << 0;               // 1
 const FLAG_EMOJI_PRESENTATION = 1 << 1;  // 2
 const FLAG_WIDE = 1 << 2;                // 4
@@ -45,25 +43,20 @@ async function fetchAndParse() {
 
     console.log('Parsing data...');
 
-    // מערך שמייצג את כל מרחב היוניקוד 
-    // כל תא יחזיק מספר שמייצג את הדגלים שהדלקנו עליו
     const unicodeSpace = new Uint8Array(0x10FFFF + 1);
 
     const lineRegex = /^([0-9A-F]+)(?:\.\.([0-9A-F]+))?\s+;\s+([A-Za-z_]+)/;
 
-    // פונקציה שמדליקה דגל על טווח מסוים
     function applyProperty(text: string, propMatch: string, flag: number) {
         const lines = text.split('\n');
         for (const line of lines) {
             if (line.startsWith('#') || line.trim() === '') continue;
             const match = line.match(lineRegex);
             
-            // אם המאפיין בשורה מתאים למאפיין שאנחנו מחפשים
             if (match && match[3]! === propMatch) {
                 const start = parseInt(match[1]!, 16);
                 const end = match[2] ? parseInt(match[2]!, 16) : start;
                 
-                // מדליקים את הביט הרלוונטי לכל התווים בטווח
                 for (let i = start; i <= end; i++) {
                     unicodeSpace[i]! |= flag;
                 }
@@ -71,14 +64,12 @@ async function fetchAndParse() {
         }
     }
 
-    // מעבר על הקבצים והדלקת הדגלים הרלוונטיים
     applyProperty(emojiDataText, 'Emoji', FLAG_EMOJI);
     applyProperty(emojiDataText, 'Emoji_Presentation', FLAG_EMOJI_PRESENTATION);
     applyProperty(eawText, 'W', FLAG_WIDE);
     applyProperty(eawText, 'F', FLAG_WIDE);
     applyProperty(eawText, 'A', FLAG_AMBIGUOUS);
 
-    // פונקציית עזר שהופכת אינדקסים רציפים חזרה למערך של Range[]
     function compressToRanges(condition: (val: number) => boolean): Range[] {
         const ranges: Range[] = [];
         let rangeStart = -1;
@@ -87,13 +78,12 @@ async function fetchAndParse() {
             const meetsCondition = condition(unicodeSpace[i]!);
             
             if (meetsCondition && rangeStart === -1) {
-                rangeStart = i; // התחלת טווח חדש
+                rangeStart = i; 
             } else if (!meetsCondition && rangeStart !== -1) {
-                ranges.push({ start: rangeStart, end: i - 1 }); // סגירת הטווח
+                ranges.push({ start: rangeStart, end: i - 1 }); 
                 rangeStart = -1;
             }
         }
-        // סגירת טווח במקרה שהוא מגיע עד סוף המערך
         if (rangeStart !== -1) {
             ranges.push({ start: rangeStart, end: 0x10FFFF });
         }
@@ -115,30 +105,8 @@ async function fetchAndParse() {
         (val & FLAG_AMBIGUOUS) !== 0
     );
 
-    // console.log(`Found ${wideRanges.length} wide ranges.`);
-    // console.log(`Found ${narrowEmojiRanges.length} narrow emoji ranges.`);
-    // console.log(`Found ${ambiguousRanges.length} ambiguous ranges.`);
 
-
-//     function isInRange(cp: number, ranges: Range[]) {
-//     return ranges.some(r => cp >= r.start && cp <= r.end);
-// }
-// console.log('\n--- Sanity Checks ---');
-// // אימוג'י רגיל שאמור להיות רחב
-// console.log('🤣 (ROFL) is wide?', isInRange(0x1F923, wideRanges)); // צפה ל: true
-
-// // אימוג'י צר (שזיהינו בסעיף 2 ב-Writeup)
-// console.log('☀ (Sun) is narrow emoji?', isInRange(0x2600, narrowEmojiRanges)); // צפה ל: true
-// console.log('☀ (Sun) is wide?', isInRange(0x2600, wideRanges)); // צפה ל: false
-
-// // תו CJK שאמור להיות רחב תמיד
-// console.log('字 (CJK) is wide?', isInRange(0x5B57, wideRanges)); // צפה ל: true
-
-// // אות רגילה לחלוטין שאמורה לא להופיע באף רשימה פה
-// console.log('א (Aleph) is wide?', isInRange(0x05D0, wideRanges)); // צפה ל: false
-    // ... אחרי ההדפסות של ה-console.log ...
-
-    // פונקציית עזר להמרת מערך טווחים לטקסט של קוד TypeScript
+    // range to TS code
     function stringifyRanges(ranges: Range[]) {
         const lines = ranges.map(r => 
             `  { start: 0x${r.start.toString(16).toUpperCase()}, end: 0x${r.end.toString(16).toUpperCase()} }`

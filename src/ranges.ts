@@ -1,5 +1,5 @@
 // THIS FILE IS AUTO-GENERATED. DO NOT EDIT MANUALLY.
-// Generated on: 2026-08-24T20:02:54.646Z
+// Generated on: 2026-08-24T20:22:17.808Z
 
 export interface Range {
   start: number;
