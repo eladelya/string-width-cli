@@ -1,136 +1,487 @@
-// src/ranges.ts
-interface UnicodeRange {
-    start: number;
-    end: number;
+// THIS FILE IS AUTO-GENERATED. DO NOT EDIT MANUALLY.
+// Generated on: 2026-08-24T17:31:08.311Z
+
+export interface Range {
+  start: number;
+  end: number;
 }
 
-const ZERO_WIDTH_CHARS = new Set([
-    0x200D, // ZWJ (Zero Width Joiner)
-    0x200C, // ZWNJ (Zero Width Non-Joiner)
-    0xFEFF, // Zero Width No-Break Space (BOM)
-    0x00AD, // Soft Hyphen
-    0x200B, // Zero Width Space
-    0x2060, // Word Joiner
-]);
+export const WIDE_RANGES: Range[] = [
+  { start: 0x1100, end: 0x115F },
+  { start: 0x231A, end: 0x231B },
+  { start: 0x2329, end: 0x232A },
+  { start: 0x23E9, end: 0x23EC },
+  { start: 0x23F0, end: 0x23F0 },
+  { start: 0x23F3, end: 0x23F3 },
+  { start: 0x25FD, end: 0x25FE },
+  { start: 0x2614, end: 0x2615 },
+  { start: 0x2630, end: 0x2637 },
+  { start: 0x2648, end: 0x2653 },
+  { start: 0x267F, end: 0x267F },
+  { start: 0x268A, end: 0x268F },
+  { start: 0x2693, end: 0x2693 },
+  { start: 0x26A1, end: 0x26A1 },
+  { start: 0x26AA, end: 0x26AB },
+  { start: 0x26BD, end: 0x26BE },
+  { start: 0x26C4, end: 0x26C5 },
+  { start: 0x26CE, end: 0x26CE },
+  { start: 0x26D4, end: 0x26D4 },
+  { start: 0x26EA, end: 0x26EA },
+  { start: 0x26F2, end: 0x26F3 },
+  { start: 0x26F5, end: 0x26F5 },
+  { start: 0x26FA, end: 0x26FA },
+  { start: 0x26FD, end: 0x26FD },
+  { start: 0x2705, end: 0x2705 },
+  { start: 0x270A, end: 0x270B },
+  { start: 0x2728, end: 0x2728 },
+  { start: 0x274C, end: 0x274C },
+  { start: 0x274E, end: 0x274E },
+  { start: 0x2753, end: 0x2755 },
+  { start: 0x2757, end: 0x2757 },
+  { start: 0x2795, end: 0x2797 },
+  { start: 0x27B0, end: 0x27B0 },
+  { start: 0x27BF, end: 0x27BF },
+  { start: 0x2B1B, end: 0x2B1C },
+  { start: 0x2B50, end: 0x2B50 },
+  { start: 0x2B55, end: 0x2B55 },
+  { start: 0x2E80, end: 0x2E99 },
+  { start: 0x2E9B, end: 0x2EF3 },
+  { start: 0x2F00, end: 0x2FD5 },
+  { start: 0x2FF0, end: 0x303E },
+  { start: 0x3041, end: 0x3096 },
+  { start: 0x3099, end: 0x30FF },
+  { start: 0x3105, end: 0x312F },
+  { start: 0x3131, end: 0x318E },
+  { start: 0x3190, end: 0x31E5 },
+  { start: 0x31EF, end: 0x321E },
+  { start: 0x3220, end: 0x3247 },
+  { start: 0x3250, end: 0xA48C },
+  { start: 0xA490, end: 0xA4C6 },
+  { start: 0xA960, end: 0xA97C },
+  { start: 0xAC00, end: 0xD7A3 },
+  { start: 0xF900, end: 0xFAFF },
+  { start: 0xFE10, end: 0xFE19 },
+  { start: 0xFE30, end: 0xFE52 },
+  { start: 0xFE54, end: 0xFE66 },
+  { start: 0xFE68, end: 0xFE6B },
+  { start: 0xFF01, end: 0xFF60 },
+  { start: 0xFFE0, end: 0xFFE6 },
+  { start: 0x16FE0, end: 0x16FE4 },
+  { start: 0x16FF0, end: 0x16FF6 },
+  { start: 0x17000, end: 0x18CD5 },
+  { start: 0x18CFF, end: 0x18D1E },
+  { start: 0x18D80, end: 0x18DF2 },
+  { start: 0x1AFF0, end: 0x1AFF3 },
+  { start: 0x1AFF5, end: 0x1AFFB },
+  { start: 0x1AFFD, end: 0x1AFFE },
+  { start: 0x1B000, end: 0x1B122 },
+  { start: 0x1B132, end: 0x1B132 },
+  { start: 0x1B150, end: 0x1B152 },
+  { start: 0x1B155, end: 0x1B155 },
+  { start: 0x1B164, end: 0x1B167 },
+  { start: 0x1B170, end: 0x1B2FB },
+  { start: 0x1D300, end: 0x1D356 },
+  { start: 0x1D360, end: 0x1D376 },
+  { start: 0x1F004, end: 0x1F004 },
+  { start: 0x1F0CF, end: 0x1F0CF },
+  { start: 0x1F18E, end: 0x1F18E },
+  { start: 0x1F191, end: 0x1F19A },
+  { start: 0x1F1E6, end: 0x1F202 },
+  { start: 0x1F210, end: 0x1F23B },
+  { start: 0x1F240, end: 0x1F248 },
+  { start: 0x1F250, end: 0x1F251 },
+  { start: 0x1F260, end: 0x1F265 },
+  { start: 0x1F300, end: 0x1F320 },
+  { start: 0x1F32D, end: 0x1F335 },
+  { start: 0x1F337, end: 0x1F37C },
+  { start: 0x1F37E, end: 0x1F393 },
+  { start: 0x1F3A0, end: 0x1F3CA },
+  { start: 0x1F3CF, end: 0x1F3D3 },
+  { start: 0x1F3E0, end: 0x1F3F0 },
+  { start: 0x1F3F4, end: 0x1F3F4 },
+  { start: 0x1F3F8, end: 0x1F43E },
+  { start: 0x1F440, end: 0x1F440 },
+  { start: 0x1F442, end: 0x1F4FC },
+  { start: 0x1F4FF, end: 0x1F53D },
+  { start: 0x1F54B, end: 0x1F54E },
+  { start: 0x1F550, end: 0x1F567 },
+  { start: 0x1F57A, end: 0x1F57A },
+  { start: 0x1F595, end: 0x1F596 },
+  { start: 0x1F5A4, end: 0x1F5A4 },
+  { start: 0x1F5FB, end: 0x1F64F },
+  { start: 0x1F680, end: 0x1F6C5 },
+  { start: 0x1F6CC, end: 0x1F6CC },
+  { start: 0x1F6D0, end: 0x1F6D2 },
+  { start: 0x1F6D5, end: 0x1F6D8 },
+  { start: 0x1F6DC, end: 0x1F6DF },
+  { start: 0x1F6EB, end: 0x1F6EC },
+  { start: 0x1F6F4, end: 0x1F6FC },
+  { start: 0x1F7E0, end: 0x1F7EB },
+  { start: 0x1F7F0, end: 0x1F7F0 },
+  { start: 0x1F90C, end: 0x1F93A },
+  { start: 0x1F93C, end: 0x1F945 },
+  { start: 0x1F947, end: 0x1F9FF },
+  { start: 0x1FA70, end: 0x1FA7C },
+  { start: 0x1FA80, end: 0x1FA8A },
+  { start: 0x1FA8E, end: 0x1FAC6 },
+  { start: 0x1FAC8, end: 0x1FAC8 },
+  { start: 0x1FACD, end: 0x1FADC },
+  { start: 0x1FADF, end: 0x1FAEA },
+  { start: 0x1FAEF, end: 0x1FAF8 },
+  { start: 0x20000, end: 0x2FFFD },
+  { start: 0x30000, end: 0x3FFFD }
+];
+
+export const NARROW_EMOJI_RANGES: Range[] = [
+  { start: 0x23, end: 0x23 },
+  { start: 0x2A, end: 0x2A },
+  { start: 0x30, end: 0x39 },
+  { start: 0xA9, end: 0xA9 },
+  { start: 0xAE, end: 0xAE },
+  { start: 0x203C, end: 0x203C },
+  { start: 0x2049, end: 0x2049 },
+  { start: 0x2122, end: 0x2122 },
+  { start: 0x2139, end: 0x2139 },
+  { start: 0x2194, end: 0x2199 },
+  { start: 0x21A9, end: 0x21AA },
+  { start: 0x2328, end: 0x2328 },
+  { start: 0x23CF, end: 0x23CF },
+  { start: 0x23ED, end: 0x23EF },
+  { start: 0x23F1, end: 0x23F2 },
+  { start: 0x23F8, end: 0x23FA },
+  { start: 0x24C2, end: 0x24C2 },
+  { start: 0x25AA, end: 0x25AB },
+  { start: 0x25B6, end: 0x25B6 },
+  { start: 0x25C0, end: 0x25C0 },
+  { start: 0x25FB, end: 0x25FC },
+  { start: 0x2600, end: 0x2604 },
+  { start: 0x260E, end: 0x260E },
+  { start: 0x2611, end: 0x2611 },
+  { start: 0x2618, end: 0x2618 },
+  { start: 0x261D, end: 0x261D },
+  { start: 0x2620, end: 0x2620 },
+  { start: 0x2622, end: 0x2623 },
+  { start: 0x2626, end: 0x2626 },
+  { start: 0x262A, end: 0x262A },
+  { start: 0x262E, end: 0x262F },
+  { start: 0x2638, end: 0x263A },
+  { start: 0x2640, end: 0x2640 },
+  { start: 0x2642, end: 0x2642 },
+  { start: 0x265F, end: 0x2660 },
+  { start: 0x2663, end: 0x2663 },
+  { start: 0x2665, end: 0x2666 },
+  { start: 0x2668, end: 0x2668 },
+  { start: 0x267B, end: 0x267B },
+  { start: 0x267E, end: 0x267E },
+  { start: 0x2692, end: 0x2692 },
+  { start: 0x2694, end: 0x2697 },
+  { start: 0x2699, end: 0x2699 },
+  { start: 0x269B, end: 0x269C },
+  { start: 0x26A0, end: 0x26A0 },
+  { start: 0x26A7, end: 0x26A7 },
+  { start: 0x26B0, end: 0x26B1 },
+  { start: 0x26C8, end: 0x26C8 },
+  { start: 0x26CF, end: 0x26CF },
+  { start: 0x26D1, end: 0x26D1 },
+  { start: 0x26D3, end: 0x26D3 },
+  { start: 0x26E9, end: 0x26E9 },
+  { start: 0x26F0, end: 0x26F1 },
+  { start: 0x26F4, end: 0x26F4 },
+  { start: 0x26F7, end: 0x26F9 },
+  { start: 0x2702, end: 0x2702 },
+  { start: 0x2708, end: 0x2709 },
+  { start: 0x270C, end: 0x270D },
+  { start: 0x270F, end: 0x270F },
+  { start: 0x2712, end: 0x2712 },
+  { start: 0x2714, end: 0x2714 },
+  { start: 0x2716, end: 0x2716 },
+  { start: 0x271D, end: 0x271D },
+  { start: 0x2721, end: 0x2721 },
+  { start: 0x2733, end: 0x2734 },
+  { start: 0x2744, end: 0x2744 },
+  { start: 0x2747, end: 0x2747 },
+  { start: 0x2763, end: 0x2764 },
+  { start: 0x27A1, end: 0x27A1 },
+  { start: 0x2934, end: 0x2935 },
+  { start: 0x2B05, end: 0x2B07 },
+  { start: 0x3030, end: 0x3030 },
+  { start: 0x303D, end: 0x303D },
+  { start: 0x3297, end: 0x3297 },
+  { start: 0x3299, end: 0x3299 },
+  { start: 0x1F170, end: 0x1F171 },
+  { start: 0x1F17E, end: 0x1F17F },
+  { start: 0x1F202, end: 0x1F202 },
+  { start: 0x1F237, end: 0x1F237 },
+  { start: 0x1F321, end: 0x1F321 },
+  { start: 0x1F324, end: 0x1F32C },
+  { start: 0x1F336, end: 0x1F336 },
+  { start: 0x1F37D, end: 0x1F37D },
+  { start: 0x1F396, end: 0x1F397 },
+  { start: 0x1F399, end: 0x1F39B },
+  { start: 0x1F39E, end: 0x1F39F },
+  { start: 0x1F3CB, end: 0x1F3CE },
+  { start: 0x1F3D4, end: 0x1F3DF },
+  { start: 0x1F3F3, end: 0x1F3F3 },
+  { start: 0x1F3F5, end: 0x1F3F5 },
+  { start: 0x1F3F7, end: 0x1F3F7 },
+  { start: 0x1F43F, end: 0x1F43F },
+  { start: 0x1F441, end: 0x1F441 },
+  { start: 0x1F4FD, end: 0x1F4FD },
+  { start: 0x1F549, end: 0x1F54A },
+  { start: 0x1F56F, end: 0x1F570 },
+  { start: 0x1F573, end: 0x1F579 },
+  { start: 0x1F587, end: 0x1F587 },
+  { start: 0x1F58A, end: 0x1F58D },
+  { start: 0x1F590, end: 0x1F590 },
+  { start: 0x1F5A5, end: 0x1F5A5 },
+  { start: 0x1F5A8, end: 0x1F5A8 },
+  { start: 0x1F5B1, end: 0x1F5B2 },
+  { start: 0x1F5BC, end: 0x1F5BC },
+  { start: 0x1F5C2, end: 0x1F5C4 },
+  { start: 0x1F5D1, end: 0x1F5D3 },
+  { start: 0x1F5DC, end: 0x1F5DE },
+  { start: 0x1F5E1, end: 0x1F5E1 },
+  { start: 0x1F5E3, end: 0x1F5E3 },
+  { start: 0x1F5E8, end: 0x1F5E8 },
+  { start: 0x1F5EF, end: 0x1F5EF },
+  { start: 0x1F5F3, end: 0x1F5F3 },
+  { start: 0x1F5FA, end: 0x1F5FA },
+  { start: 0x1F6CB, end: 0x1F6CB },
+  { start: 0x1F6CD, end: 0x1F6CF },
+  { start: 0x1F6E0, end: 0x1F6E5 },
+  { start: 0x1F6E9, end: 0x1F6E9 },
+  { start: 0x1F6F0, end: 0x1F6F0 },
+  { start: 0x1F6F3, end: 0x1F6F3 }
+];
+
+export const AMBIGUOUS_RANGES: Range[] = [
+  { start: 0xA1, end: 0xA1 },
+  { start: 0xA4, end: 0xA4 },
+  { start: 0xA7, end: 0xA8 },
+  { start: 0xAA, end: 0xAA },
+  { start: 0xAD, end: 0xAE },
+  { start: 0xB0, end: 0xB4 },
+  { start: 0xB6, end: 0xBA },
+  { start: 0xBC, end: 0xBF },
+  { start: 0xC6, end: 0xC6 },
+  { start: 0xD0, end: 0xD0 },
+  { start: 0xD7, end: 0xD8 },
+  { start: 0xDE, end: 0xE1 },
+  { start: 0xE6, end: 0xE6 },
+  { start: 0xE8, end: 0xEA },
+  { start: 0xEC, end: 0xED },
+  { start: 0xF0, end: 0xF0 },
+  { start: 0xF2, end: 0xF3 },
+  { start: 0xF7, end: 0xFA },
+  { start: 0xFC, end: 0xFC },
+  { start: 0xFE, end: 0xFE },
+  { start: 0x101, end: 0x101 },
+  { start: 0x111, end: 0x111 },
+  { start: 0x113, end: 0x113 },
+  { start: 0x11B, end: 0x11B },
+  { start: 0x126, end: 0x127 },
+  { start: 0x12B, end: 0x12B },
+  { start: 0x131, end: 0x133 },
+  { start: 0x138, end: 0x138 },
+  { start: 0x13F, end: 0x142 },
+  { start: 0x144, end: 0x144 },
+  { start: 0x148, end: 0x14B },
+  { start: 0x14D, end: 0x14D },
+  { start: 0x152, end: 0x153 },
+  { start: 0x166, end: 0x167 },
+  { start: 0x16B, end: 0x16B },
+  { start: 0x1CE, end: 0x1CE },
+  { start: 0x1D0, end: 0x1D0 },
+  { start: 0x1D2, end: 0x1D2 },
+  { start: 0x1D4, end: 0x1D4 },
+  { start: 0x1D6, end: 0x1D6 },
+  { start: 0x1D8, end: 0x1D8 },
+  { start: 0x1DA, end: 0x1DA },
+  { start: 0x1DC, end: 0x1DC },
+  { start: 0x251, end: 0x251 },
+  { start: 0x261, end: 0x261 },
+  { start: 0x2C4, end: 0x2C4 },
+  { start: 0x2C7, end: 0x2C7 },
+  { start: 0x2C9, end: 0x2CB },
+  { start: 0x2CD, end: 0x2CD },
+  { start: 0x2D0, end: 0x2D0 },
+  { start: 0x2D8, end: 0x2DB },
+  { start: 0x2DD, end: 0x2DD },
+  { start: 0x2DF, end: 0x2DF },
+  { start: 0x300, end: 0x36F },
+  { start: 0x391, end: 0x3A1 },
+  { start: 0x3A3, end: 0x3A9 },
+  { start: 0x3B1, end: 0x3C1 },
+  { start: 0x3C3, end: 0x3C9 },
+  { start: 0x401, end: 0x401 },
+  { start: 0x410, end: 0x44F },
+  { start: 0x451, end: 0x451 },
+  { start: 0x2010, end: 0x2010 },
+  { start: 0x2013, end: 0x2016 },
+  { start: 0x2018, end: 0x2019 },
+  { start: 0x201C, end: 0x201D },
+  { start: 0x2020, end: 0x2022 },
+  { start: 0x2024, end: 0x2027 },
+  { start: 0x2030, end: 0x2030 },
+  { start: 0x2032, end: 0x2033 },
+  { start: 0x2035, end: 0x2035 },
+  { start: 0x203B, end: 0x203B },
+  { start: 0x203E, end: 0x203E },
+  { start: 0x2074, end: 0x2074 },
+  { start: 0x207F, end: 0x207F },
+  { start: 0x2081, end: 0x2084 },
+  { start: 0x20AC, end: 0x20AC },
+  { start: 0x2103, end: 0x2103 },
+  { start: 0x2105, end: 0x2105 },
+  { start: 0x2109, end: 0x2109 },
+  { start: 0x2113, end: 0x2113 },
+  { start: 0x2116, end: 0x2116 },
+  { start: 0x2121, end: 0x2122 },
+  { start: 0x2126, end: 0x2126 },
+  { start: 0x212B, end: 0x212B },
+  { start: 0x2153, end: 0x2154 },
+  { start: 0x215B, end: 0x215E },
+  { start: 0x2160, end: 0x216B },
+  { start: 0x2170, end: 0x2179 },
+  { start: 0x2189, end: 0x2189 },
+  { start: 0x2190, end: 0x2199 },
+  { start: 0x21B8, end: 0x21B9 },
+  { start: 0x21D2, end: 0x21D2 },
+  { start: 0x21D4, end: 0x21D4 },
+  { start: 0x21E7, end: 0x21E7 },
+  { start: 0x2200, end: 0x2200 },
+  { start: 0x2202, end: 0x2203 },
+  { start: 0x2207, end: 0x2208 },
+  { start: 0x220B, end: 0x220B },
+  { start: 0x220F, end: 0x220F },
+  { start: 0x2211, end: 0x2211 },
+  { start: 0x2215, end: 0x2215 },
+  { start: 0x221A, end: 0x221A },
+  { start: 0x221D, end: 0x2220 },
+  { start: 0x2223, end: 0x2223 },
+  { start: 0x2225, end: 0x2225 },
+  { start: 0x2227, end: 0x222C },
+  { start: 0x222E, end: 0x222E },
+  { start: 0x2234, end: 0x2237 },
+  { start: 0x223C, end: 0x223D },
+  { start: 0x2248, end: 0x2248 },
+  { start: 0x224C, end: 0x224C },
+  { start: 0x2252, end: 0x2252 },
+  { start: 0x2260, end: 0x2261 },
+  { start: 0x2264, end: 0x2267 },
+  { start: 0x226A, end: 0x226B },
+  { start: 0x226E, end: 0x226F },
+  { start: 0x2282, end: 0x2283 },
+  { start: 0x2286, end: 0x2287 },
+  { start: 0x2295, end: 0x2295 },
+  { start: 0x2299, end: 0x2299 },
+  { start: 0x22A5, end: 0x22A5 },
+  { start: 0x22BF, end: 0x22BF },
+  { start: 0x2312, end: 0x2312 },
+  { start: 0x2460, end: 0x24E9 },
+  { start: 0x24EB, end: 0x254B },
+  { start: 0x2550, end: 0x2573 },
+  { start: 0x2580, end: 0x258F },
+  { start: 0x2592, end: 0x2595 },
+  { start: 0x25A0, end: 0x25A1 },
+  { start: 0x25A3, end: 0x25A9 },
+  { start: 0x25B2, end: 0x25B3 },
+  { start: 0x25B6, end: 0x25B7 },
+  { start: 0x25BC, end: 0x25BD },
+  { start: 0x25C0, end: 0x25C1 },
+  { start: 0x25C6, end: 0x25C8 },
+  { start: 0x25CB, end: 0x25CB },
+  { start: 0x25CE, end: 0x25D1 },
+  { start: 0x25E2, end: 0x25E5 },
+  { start: 0x25EF, end: 0x25EF },
+  { start: 0x2605, end: 0x2606 },
+  { start: 0x2609, end: 0x2609 },
+  { start: 0x260E, end: 0x260F },
+  { start: 0x261C, end: 0x261C },
+  { start: 0x261E, end: 0x261E },
+  { start: 0x2640, end: 0x2640 },
+  { start: 0x2642, end: 0x2642 },
+  { start: 0x2660, end: 0x2661 },
+  { start: 0x2663, end: 0x2665 },
+  { start: 0x2667, end: 0x266A },
+  { start: 0x266C, end: 0x266D },
+  { start: 0x266F, end: 0x266F },
+  { start: 0x269E, end: 0x269F },
+  { start: 0x26BF, end: 0x26BF },
+  { start: 0x26C6, end: 0x26CD },
+  { start: 0x26CF, end: 0x26D3 },
+  { start: 0x26D5, end: 0x26E1 },
+  { start: 0x26E3, end: 0x26E3 },
+  { start: 0x26E8, end: 0x26E9 },
+  { start: 0x26EB, end: 0x26F1 },
+  { start: 0x26F4, end: 0x26F4 },
+  { start: 0x26F6, end: 0x26F9 },
+  { start: 0x26FB, end: 0x26FC },
+  { start: 0x26FE, end: 0x26FF },
+  { start: 0x273D, end: 0x273D },
+  { start: 0x2776, end: 0x277F },
+  { start: 0x2B56, end: 0x2B59 },
+  { start: 0x3248, end: 0x324F },
+  { start: 0xE000, end: 0xF8FF },
+  { start: 0xFE00, end: 0xFE0F },
+  { start: 0xFFFD, end: 0xFFFD },
+  { start: 0x1F100, end: 0x1F10A },
+  { start: 0x1F110, end: 0x1F12D },
+  { start: 0x1F130, end: 0x1F169 },
+  { start: 0x1F170, end: 0x1F18D },
+  { start: 0x1F18F, end: 0x1F190 },
+  { start: 0x1F19B, end: 0x1F1AC },
+  { start: 0xE0100, end: 0xE01EF },
+  { start: 0xF0000, end: 0xFFFFD },
+  { start: 0x100000, end: 0x10FFFD }
+];
+
+export function inRange(ranges: Range[], codePoint: number): boolean {
+    let low = 0;
+    let high = ranges.length - 1;
+    
+    while (low <= high) {
+        const mid = Math.floor((low + high) / 2);
+        const range = ranges[mid];
+        
+        if (codePoint >= range!.start && codePoint <= range!.end) {
+            return true;
+        } else if (codePoint < range!.start) {
+            high = mid - 1;
+        } else {
+            low = mid + 1;
+        }
+    }
+    return false;
+}
 
 export function isRegionalIndicator(codePoint: number): boolean {
     return codePoint >= 0x1F1E6 && codePoint <= 0x1F1FF;
 }
-
-export function isZeroWidthCodePoint(codePoint: number): boolean {
-    if (ZERO_WIDTH_CHARS.has(codePoint)) {
-        return true;
+    export function isWide(codePoint: number): boolean {
+        return inRange(WIDE_RANGES, codePoint);
     }
-
-    // סימני כיווניות ועיצוב נסתרים (Bidi controls)
-    if (codePoint >= 0x202A && codePoint <= 0x202E) return true;
-    if (codePoint >= 0x2066 && codePoint <= 0x2069) return true;
-    // Combining Diacritical Marks (סימני ניקוד שאין להם רוחב משל עצמם)
-    if (codePoint >= 0x0300 && codePoint <= 0x036F) return true;
-    if (codePoint >= 0x1AB0 && codePoint <= 0x1AFF) return true;
-    if (codePoint >= 0x1DC0 && codePoint <= 0x1DFF) return true;
-    if (codePoint >= 0x20D0 && codePoint <= 0x20FF) return true;
-    if (codePoint >= 0xFE20 && codePoint <= 0xFE2F) return true;
-
-    // console.log("\nThis code point is not zero:")
-    // console.log(codePoint); 
-
-    return false;
-}
-
-// from emoji-data.txt 
-const EMOJI_RANGES: UnicodeRange[] = [
-    { start: 0x231A, end: 0x231B }, // Watch, Hourglass
-    { start: 0x23E9, end: 0x23F3 }, // Fast-forward, timers, alarms
-    { start: 0x23F8, end: 0x23FA }, // Pause, Play, Record
-    { start: 0x25AA, end: 0x25AB }, // Small squares
-    { start: 0x25FB, end: 0x25FE }, // Medium/Large squares
-    { start: 0x2600, end: 0x27EF }, // Miscellaneous Symbols, Dingbats
-    { start: 0x2B50, end: 0x2B50 }, // White Medium Star
-    { start: 0x2B55, end: 0x2B55 }, // Heavy Large Circle
-    { start: 0x3030, end: 0x3030 }, // Wavy Dash
-    { start: 0x303D, end: 0x303D }, // Part Alternation Mark
-    { start: 0x3297, end: 0x3297 }, // Circled Ideograph Congratulation
-    { start: 0x3299, end: 0x3299 }, // Circled Ideograph Secret
-    { start: 0x1F004, end: 0x1F004 }, // Mahjong Tile Red Dragon
-    { start: 0x1F0CF, end: 0x1F0CF }, // Playing Card Black Joker
-    { start: 0x1F18E, end: 0x1F18E }, // Negative Squared AB
-    { start: 0x1F191, end: 0x1F19A }, // Squared ID, NEW, etc.
-    // { start: 0x1F1E6, end: 0x1F1FF }, // Regional Indicator Symbols (Flags)
-    { start: 0x1F201, end: 0x1F251 }, // Enclosed CJK Letters and Supplement
-    { start: 0x1F300, end: 0x1F5FF }, // Miscellaneous Symbols and Pictographs
-    { start: 0x1F600, end: 0x1F64F }, // Emoticons
-    { start: 0x1F680, end: 0x1F6FF }, // Transport and Map Symbols
-    { start: 0x1F700, end: 0x1F77F }, // Alchemical Symbols
-    { start: 0x1F780, end: 0x1F7FF }, // Geometric Shapes Extended
-    { start: 0x1F800, end: 0x1F8FF }, // Supplemental Arrows-C
-    { start: 0x1F900, end: 0x1F9FF }, // Supplemental Symbols and Pictographs
-    { start: 0x1FA70, end: 0x1FAFF }, // Symbols and Pictographs Extended-A
-];
-
-// from EastAsianWidth.txt
-const EAST_ASIAN_WIDE_RANGES: UnicodeRange[] = [
-    { start: 0x1100, end: 0x115F },   // Hangul Jamo
-    { start: 0x2329, end: 0x232A },   // Left-Pointing Angle Bracket, Right-Pointing Angle Bracket
-    { start: 0x2E80, end: 0x2FFF },   // CJK Radicals Supplement, Kangxi Radicals
-    { start: 0x3000, end: 0x303F },   // CJK Symbols and Punctuation
-    { start: 0x3040, end: 0x309F },   // Hiragana
-    { start: 0x30A0, end: 0x30FF },   // Katakana
-    { start: 0x3100, end: 0x312F },   // Bopomofo
-    { start: 0x3130, end: 0x318F },   // Hangul Compatibility Jamo
-    { start: 0x3190, end: 0x319F },   // Kanbun
-    { start: 0x31A0, end: 0x31BF },   // Bopomofo Extended
-    { start: 0x31C0, end: 0x31EF },   // CJK Strokes
-    { start: 0x31F0, end: 0x31FF },   // Katakana Phonetic Extensions
-    { start: 0x3200, end: 0x32FF },   // Enclosed CJK Letters and Months
-    { start: 0x3300, end: 0x33FF },   // CJK Compatibility
-    { start: 0x3400, end: 0x4DBF },   // CJK Unified Ideographs Extension A
-    { start: 0x4E00, end: 0x9FFF },   // CJK Unified Ideographs
-    { start: 0xA000, end: 0xA4CF },   // Yi Syllables, Yi Radicals
-    { start: 0xAC00, end: 0xD7A3 },   // Hangul Syllables
-    { start: 0xF900, end: 0xFAFF },   // CJK Compatibility Ideographs
-    { start: 0xFE10, end: 0xFE1F },   // Vertical Forms
-    { start: 0xFE30, end: 0xFE4F },   // CJK Compatibility Forms
-    { start: 0xFE50, end: 0xFE6F },   // Small Form Variants (Fullwidth/Wide variants)
-    { start: 0xFF00, end: 0xFF60 },   // Fullwidth ASCII variants & Fullwidth punctuation
-    { start: 0xFFE0, end: 0xFFE6 },   // Fullwidth Symbol Variants
-    { start: 0x20000, end: 0x2A6DF }, // CJK Unified Ideographs Extension B
-    { start: 0x2A700, end: 0x2B73F }, // CJK Unified Ideographs Extension C
-    { start: 0x2B740, end: 0x2B81F }, // CJK Unified Ideographs Extension D
-    { start: 0x2B820, end: 0x2CEAF }, // CJK Unified Ideographs Extension E
-    { start: 0x2CEB0, end: 0x2EBEF }, // CJK Unified Ideographs Extension F
-    { start: 0x2F800, end: 0x2FA1F }, // CJK Compatibility Ideographs Supplement
-    { start: 0x30000, end: 0x3134F }, // CJK Unified Ideographs Extension G/H
-];
-
-
-// check weather a aspesific code point falls somewhere between given ranges - binary search
-function isInRanges(codePoint: number, ranges: UnicodeRange[]): boolean {
-    let left = 0;
-    let right = ranges.length - 1;
-
-    while (left <= right) {
-        const mid = Math.floor((left + right) / 2);
-        const range = ranges[mid];
-
-        if (!range) break; // In case the range is invaild for some reason
-
-        if (codePoint >= range.start && codePoint <= range.end) {
-            return true;
-        } else if (codePoint < range.start) {
-            right = mid - 1;
-        } else {
-            left = mid + 1;
-        }
+    
+    export function isNarrowEmoji(codePoint: number): boolean {
+        return inRange(NARROW_EMOJI_RANGES, codePoint);
     }
-
-    return false;
-}
-
-export function isEmojiCodePoint(codePoint: number): boolean {
-    return isInRanges(codePoint, EMOJI_RANGES);
-}
-
-export function isEastAsianWide(codePoint: number): boolean {
-    return isInRanges(codePoint, EAST_ASIAN_WIDE_RANGES);
-}
+    
+    export function isAmbiguous(codePoint: number): boolean {
+        return inRange(AMBIGUOUS_RANGES, codePoint);
+    }
+    
+    export function isZeroWidthCodePoint(codePoint: number): boolean {
+        return (
+            // Zero Width Spaces & Joiners 
+            codePoint === 0x200B || // Zero Width Space (ZWSP)
+            codePoint === 0x200C || // Zero Width Non-Joiner (ZWNJ)
+            codePoint === 0x200D || // Zero Width Joiner (ZWJ) 
+            codePoint === 0x2060 || // Word Joiner (WJ)
+            codePoint === 0xFEFF || // Zero Width No-Break Space (BOM)
+            // Bidi Control Characters (RTL/LTR) 
+            (codePoint >= 0x200E && codePoint <= 0x200F) || // LRM, RLM
+            (codePoint >= 0x202A && codePoint <= 0x202E) || // LRE, RLE, PDF, LRO, RLO
+            (codePoint >= 0x2066 && codePoint <= 0x2069)    // LRI, RLI, FSI, PDI
+        );
+    }
+    
