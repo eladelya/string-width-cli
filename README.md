@@ -4,6 +4,8 @@ A lightweight, high-performance TypeScript library to calculate the exact termin
 
 Built with a focus on robust architecture, performance, and Unicode standard compliance.
 
+For a deep dive into the research, architecture decisions, and Unicode edge cases, please see WRITEUP.pdf.
+
 ## Features ✨
 * **Native Grapheme Segmentation:** Uses `Intl.Segmenter` to accurately group complex graphemes (e.g., ZWJ sequences and skin-tone modifiers).
 * **Advanced Emoji Support:** Correctly processes Emoji Presentation Selectors (`\uFE0E` for text presentation, `\uFE0F` for emoji presentation).
