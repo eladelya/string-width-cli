@@ -1,6 +1,6 @@
 # string-width (v2.0.0)
 
-A highly accurate, dependency-free TypeScript library for calculating the visual width of strings in a terminal. 
+A highly accurate, **zero runtime dependencies** TypeScript library for calculating the visual width of strings in a terminal.
 
 This major release (v2.0.0) introduces a new architecture, leveraging native `Intl.Segmenter` and an automated Unicode data build pipeline to solve complex edge cases with emojis, variation selectors, and combining marks.
 
@@ -23,7 +23,8 @@ npm install # or yarn / pnpm
 **Important:** Before using the library for the first time, you must run the build script to generate the Unicode range maps:
 
 ```bash
-npx tsx .\scripts\build-ranges.ts```
+npm run build:ranges
+```
 *(Note: This requires an active internet connection to fetch the latest Unicode data).*
 
 ## 🚀 Usage
