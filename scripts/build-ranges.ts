@@ -4,6 +4,7 @@ import path from 'node:path';
 const EMOJI_DATA_URL = 'https://www.unicode.org/Public/UCD/latest/ucd/emoji/emoji-data.txt';
 const EAST_ASIAN_WIDTH_URL = 'https://www.unicode.org/Public/UCD/latest/ucd/EastAsianWidth.txt';
 
+// TODO: Enhance fetchFileSafe with a robust non-blocking timeout mechanism and generally make it better ts engineered.
 async function fetchFileSafe(url: string, fileName: string): Promise<string> {
     try {
         console.log(`Downloading ${fileName}...`);
