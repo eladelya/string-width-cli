@@ -83,9 +83,7 @@ npm test
 
 While this library strives for high compliance with Unicode standards and terminal display norms, please note the following deliberate design choices and edge cases:
 
-1. **ANSI Escape Sequences & Hyperlinks (OSC 8):**
-   The built-in ANSI stripper uses a standard canonical regular expression focused on SGR and CSI sequences. Complex modern terminal sequences like OSC 8 hyperlinks are treated as known edge cases where raw payloads may occasionally fall through to character calculation.
-2. **Malformed Grapheme Clusters & ZWJ Edge Cases:**
+1. **Malformed Grapheme Clusters & ZWJ Edge Cases:**
    In compliance with UAX #29, segmentation relies on `Intl.Segmenter`. Highly malformed, truncated, or corrupted ZWJ/Regional Indicator sequences (e.g., stray leading joiners or unpaired flags) may occasionally fall back to standard fallback widths rather than throwing errors.
-3. **Single-Line Context:**
+2. **Single-Line Context:**
    Newlines (`\n`) and carriage returns (`\r`) are treated as zero-width control characters, assuming input represents a single visual line.

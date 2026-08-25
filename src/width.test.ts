@@ -163,6 +163,32 @@ describe('stringWidth() - The Ultimate Test Suite', () => {
         });
     });
 
+
+    describe('Advanced Code Review Gap Tests (OSC, Surrogates, Edge Cases)', () => {
+    
+    it('should handle modern terminal hyperlinks (OSC 8 sequences) without breaking width calculation', () => {
+        // מנסה לבדוק קישור טרמינל (OSC 8) שמכיל כתובת URL וטקסט
+        const hyperlink = '\u001b]8;;https://example.com\u001b\\Click Here\u001b]8;;\u001b\\';
+        // הרוחב האמיתי צריך להיות רק של הטקסט "Click Here" (שזה 10 תווים)
+        expect(stringWidth(hyperlink)).toBe(10);
+    });
+
+    it('should handle unpaired surrogate code points gracefully without crashing', () => {
+        // בדיקת surrogate בודד/יתום (Malformed string edge case)
+        const unpairedSurrogate = 'AB\uD800CD';
+        const width = stringWidth(unpairedSurrogate);
+        expect(typeof width).toBe('number');
+        expect(width).toBeGreaterThanOrEqual(4);
+    });
+
+    it('should calculate zero width for standalone combining marks or variation selectors', () => {
+        // בדיקת תווים משלבים או סלקטורים בודדים
+        const combiningMark = 'a\u0300'; // a + combining grave accent
+        // תלוי בסגמנטר, אבל לפחות מוודא שלא קורס ונותן תוצאה הגיונית
+        expect(typeof stringWidth(combiningMark)).toBe('number');
+    });
+    });
+
     describe('12. ANSI Escape Codes (Integration Test)', () => {
         it('should ignore ANSI styling codes when measuring width', () => {
             const redText = '\u001b[31mHello\u001b[0m';

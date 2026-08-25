@@ -2,10 +2,10 @@
 // Regex standard for matching ANSI escape codes, from the internet
 // const ANSI_REGEX = /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
 const ANSI_REGEX = /[\u001b\u009b][[\]()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><\\\]]/g;
+const OSC_REGEX = /\u001b\][^\u0007\u001b]*(?:\u0007|\u001b\\)/g;
 export function stripAnsi(str: string): string {
     if (typeof str !== 'string') return str;
-    return str.replace(ANSI_REGEX, '');
-}
+    return str.replace(OSC_REGEX, '').replace(ANSI_REGEX, '');}
 
 export function isControlCharacter(codePoint: number): boolean {
     if (codePoint >= 0x0000 && codePoint <= 0x001F && codePoint !== 0x0009) return true;
