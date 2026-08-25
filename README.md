@@ -83,11 +83,11 @@ npm test
 
 While this library strives for high compliance with Unicode standards and terminal display norms, please note the following deliberate design choices and edge cases:
 
-1. **Single-Line Assumption (`\n` / `\r`):** 
-   The library treats newlines and carriage returns as zero-width control characters, assuming strings represent single visual lines. Multi-line strings will return the sum of all lines concatenated as if they were on a single line.
-2. **Malformed ZWJ Sequences:** 
-   In extremely rare cases of corrupted or truncated text where a stray Zero-Width Joiner (ZWJ) appears at the absolute beginning of a grapheme cluster, it may cause the entire cluster to be evaluated as zero-width (That shouldn't happen because the segmentor will seperate to several graphemes).
-3. **Standalone Regional Indicators:** 
-   A single, unpaired Regional Indicator symbol (half of a flag code) falls back to a standard width of 1, though some modern terminals might render it as a 2-cell box.
-4. **ANSI Escape Sequences:** 
-   Relies on the standard canonical regular expression for ANSI escape code stripping, which covers standard SGR, CSI, and cursor movement sequences, but may not capture obscure proprietary terminal escape codes.
+## Known Limitations & Design Trade-offs
+
+1. **ANSI Escape Sequences & Hyperlinks (OSC 8):**
+   The built-in ANSI stripper uses a standard canonical regular expression focused on SGR and CSI sequences. Complex modern terminal sequences like OSC 8 hyperlinks are treated as known edge cases where raw payloads may occasionally fall through to character calculation.
+2. **Malformed Grapheme Clusters & ZWJ Edge Cases:**
+   In compliance with UAX #29, segmentation relies on `Intl.Segmenter`. Highly malformed, truncated, or corrupted ZWJ/Regional Indicator sequences (e.g., stray leading joiners or unpaired flags) may occasionally fall back to standard fallback widths rather than throwing errors.
+3. **Single-Line Context:**
+   Newlines (`\n`) and carriage returns (`\r`) are treated as zero-width control characters, assuming input represents a single visual line.
