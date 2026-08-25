@@ -86,5 +86,5 @@ npm test
 
 ## Known Limitations
 
-* **Malformed Grapheme Clusters:** Highly malformed or truncated sequences may fall back to standard fallback widths in compliance with UAX #29.
+* **Malformed Grapheme Clusters:** Highly malformed or truncated sequences may be handled incorrectly.
 * **Single-Line Context:** Newlines (`\n`) and carriage returns (`\r`) are treated as zero-width control characters.
