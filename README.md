@@ -78,3 +78,16 @@ The library is fully covered by a comprehensive test suite testing dozens of edg
 ```bash
 npm test
 ```
+
+## Known Limitations
+
+While this library strives for high compliance with Unicode standards and terminal display norms, please note the following deliberate design choices and edge cases:
+
+1. **Single-Line Assumption (`\n` / `\r`):** 
+   The library treats newlines and carriage returns as zero-width control characters, assuming strings represent single visual lines. Multi-line strings will return the sum of all lines concatenated as if they were on a single line.
+2. **Malformed ZWJ Sequences:** 
+   In extremely rare cases of corrupted or truncated text where a stray Zero-Width Joiner (ZWJ) appears at the absolute beginning of a grapheme cluster, it may cause the entire cluster to be evaluated as zero-width (That shouldn't happen because the segmentor will seperate to several graphemes).
+3. **Standalone Regional Indicators:** 
+   A single, unpaired Regional Indicator symbol (half of a flag code) falls back to a standard width of 1, though some modern terminals might render it as a 2-cell box.
+4. **ANSI Escape Sequences:** 
+   Relies on the standard canonical regular expression for ANSI escape code stripping, which covers standard SGR, CSI, and cursor movement sequences, but may not capture obscure proprietary terminal escape codes.

@@ -1,13 +1,7 @@
 // src/utils.ts
-// import stripAnsi from 'strip-ansi';
-
-// export { stripAnsi }; 
-
-
-
-// Regex standard for matching ANSI escape codes, internet
-const ANSI_REGEX = /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
-
+// Regex standard for matching ANSI escape codes, from the internet
+// const ANSI_REGEX = /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
+const ANSI_REGEX = /[\u001b\u009b][[\]()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><\\\]]/g;
 export function stripAnsi(str: string): string {
     if (typeof str !== 'string') return str;
     return str.replace(ANSI_REGEX, '');
