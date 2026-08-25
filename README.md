@@ -83,8 +83,6 @@ npm test
 
 While this library strives for high compliance with Unicode standards and terminal display norms, please note the following deliberate design choices and edge cases:
 
-## Known Limitations & Design Trade-offs
-
 1. **ANSI Escape Sequences & Hyperlinks (OSC 8):**
    The built-in ANSI stripper uses a standard canonical regular expression focused on SGR and CSI sequences. Complex modern terminal sequences like OSC 8 hyperlinks are treated as known edge cases where raw payloads may occasionally fall through to character calculation.
 2. **Malformed Grapheme Clusters & ZWJ Edge Cases:**
